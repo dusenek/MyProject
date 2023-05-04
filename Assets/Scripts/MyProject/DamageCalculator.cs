@@ -13,7 +13,7 @@ namespace Assets.Scripts.MyProject
     {
         public int CalculateDamage(Actor attacker, Actor target)
         {
-            int damage = Random.Range(attacker.AttackPower / 2, attacker.AttackPower);
+            int damage = Random.Range((int)(attacker.AttackPower * 0.5f), attacker.AttackPower);
             target.TakeDamage(damage);
             return damage;
         }

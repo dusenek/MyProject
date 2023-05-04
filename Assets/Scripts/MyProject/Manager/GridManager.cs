@@ -51,8 +51,8 @@ namespace Assets.Scripts.MyProject
 
         private void GenerateGround()
         {
-            int halfRow = Mathf.CeilToInt(gridSize / 2f);
-            int halfCol = Mathf.CeilToInt(gridSize / 2f);
+            int halfRow = Mathf.CeilToInt(gridSize * 0.5f);
+            int halfCol = Mathf.CeilToInt(gridSize * 0.5f);
 
             for (int row = -halfRow + 1; row <= gridSize - halfRow; row++)
             {
@@ -69,8 +69,8 @@ namespace Assets.Scripts.MyProject
 
         IEnumerator GenerateGroundCO()
         {
-            int halfRow = Mathf.CeilToInt(gridSize / 2f);
-            int halfCol = Mathf.CeilToInt(gridSize / 2f);
+            int halfRow = Mathf.CeilToInt(gridSize * 0.5f);
+            int halfCol = Mathf.CeilToInt(gridSize * 0.5f);
 
             for (int row = -halfRow + 1; row <= gridSize - halfRow; row++)
             {
@@ -95,8 +95,8 @@ namespace Assets.Scripts.MyProject
             int playerRow = Mathf.RoundToInt(playerTransform.position.x / tileSize);
             int playerCol = Mathf.RoundToInt(playerTransform.position.z / tileSize);
 
-            int halfRow = Mathf.CeilToInt(gridSize / 2f);
-            int halfCol = Mathf.CeilToInt(gridSize / 2f);
+            int halfRow = Mathf.CeilToInt(gridSize * 0.5f);
+            int halfCol = Mathf.CeilToInt(gridSize * 0.5f);
 
             return new Vector2Int((playerRow % gridSize) + halfRow, (playerCol % gridSize) + halfCol);
         }
@@ -106,8 +106,8 @@ namespace Assets.Scripts.MyProject
             int rowDirection = (int)Mathf.Clamp(direction.x, -1, 1);
             int colDirection = (int)Mathf.Clamp(direction.y, -1, 1);
 
-            int halfRow = Mathf.CeilToInt(gridSize / 2f);
-            int halfCol = Mathf.CeilToInt(gridSize / 2f);
+            int halfRow = Mathf.CeilToInt(gridSize * 0.5f);
+            int halfCol = Mathf.CeilToInt(gridSize * 0.5f);
 
             if (rowDirection != 0)
             {

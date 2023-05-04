@@ -23,21 +23,21 @@ namespace Assets.Scripts.MyProject
         public AudioClip[] FootstepAudioClips;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
-        private AnimID _animID;
-        private bool _hasAnimator;
-        private Animator _animator;
+        private AnimID animID;
+        private bool hasAnimator;
+        private Animator animator;
 
-        private StarterAssetsInputs _input;
-        private CharacterController _controller;
-        private GameObject _mainCamera;
-        private CharacterMovement _characterMovement;
+        private StarterAssetsInputs input;
+        private CharacterController controller;
+        private GameObject mainCamera;
+        private CharacterMovement characterMovement;
         private CameraController cameraController;
 
         private void Awake()
         {
-            if (_mainCamera == null)
+            if (mainCamera == null)
             {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
             
             GroundLayers = (1 << LayerMask.NameToLayer("Default")) | (1 << LayerMask.NameToLayer("Ground"));
@@ -45,21 +45,21 @@ namespace Assets.Scripts.MyProject
 
         private void Start()
         {
-            _hasAnimator = TryGetComponent(out _animator);
-            _controller = GetComponent<CharacterController>();
-            _input = GetComponent<StarterAssetsInputs>();
+            hasAnimator = TryGetComponent(out animator);
+            controller = GetComponent<CharacterController>();
+            input = GetComponent<StarterAssetsInputs>();
 
-            _animID = new AnimID();
-            _characterMovement = new CharacterMovement(_input, _controller, _mainCamera, _hasAnimator, _animator,
-            _animID, MoveSpeed, SprintSpeed, SpeedChangeRate, RotationSmoothTime, transform, 
+            animID = new AnimID();
+            characterMovement = new CharacterMovement(input, controller, mainCamera, hasAnimator, animator,
+            animID, MoveSpeed, SprintSpeed, SpeedChangeRate, RotationSmoothTime, transform, 
             Gravity, JumpHeight, JumpTimeout, FallTimeout, GroundLayers);
 
-            cameraController = new CameraController(_input, TopClamp, BottomClamp, CameraAngleOverride, CinemachineCameraTarget, LockCameraPosition);
+            cameraController = new CameraController(input, TopClamp, BottomClamp, CameraAngleOverride, CinemachineCameraTarget, LockCameraPosition);
         }
 
         private void Update()
         {
-            _hasAnimator = TryGetComponent(out _animator);
+            hasAnimator = TryGetComponent(out animator);
 
             JumpAndGravity();
             GroundedCheck();
@@ -73,7 +73,7 @@ namespace Assets.Scripts.MyProject
 
         protected override void GroundedCheck()
         {
-            _characterMovement.GroundedCheck();
+            characterMovement.GroundedCheck();
         }
 
         protected override void JumpAndGravity()
@@ -84,7 +84,7 @@ namespace Assets.Scripts.MyProject
 
         protected override void Move()
         {
-            _characterMovement.Move();
+            characterMovement.Move();
         }
 
         private void OnFootstep(AnimationEvent animationEvent)
@@ -94,7 +94,7 @@ namespace Assets.Scripts.MyProject
                 if (FootstepAudioClips.Length > 0)
                 {
                     var index = UnityEngine.Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(controller.center), FootstepAudioVolume);
                 }
             }
         }
@@ -103,7 +103,7 @@ namespace Assets.Scripts.MyProject
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(controller.center), FootstepAudioVolume);
             }
         }
     }
