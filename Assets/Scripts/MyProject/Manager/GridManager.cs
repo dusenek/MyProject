@@ -92,8 +92,9 @@ namespace Assets.Scripts.MyProject
             if (playerTransform == null)
                 return Vector2Int.zero;
 
-            int playerRow = Mathf.RoundToInt(playerTransform.position.x / tileSize);
-            int playerCol = Mathf.RoundToInt(playerTransform.position.z / tileSize);
+            float inverseTileSize = 1 / tileSize;
+            int playerRow = Mathf.RoundToInt(playerTransform.position.x * inverseTileSize);
+            int playerCol = Mathf.RoundToInt(playerTransform.position.z * inverseTileSize);
 
             int halfRow = Mathf.CeilToInt(gridSize * 0.5f);
             int halfCol = Mathf.CeilToInt(gridSize * 0.5f);

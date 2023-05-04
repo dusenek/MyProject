@@ -79,7 +79,7 @@ namespace Assets.Scripts.MyProject
         protected override void JumpAndGravity()
         {
             // 점프 기능은 막는다.
-            //_characterMovement.JumpAndGravity();
+            //characterMovement.JumpAndGravity();
         }
 
         protected override void Move()
